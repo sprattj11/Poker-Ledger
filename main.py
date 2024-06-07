@@ -1,22 +1,11 @@
 import pandas as pd
-import smtplib
-from email.mime.text import MIMEText
+import pyperclip
 
-def send_email(subject, body, to_email):
-    # Replace with your email provider's SMTP settings
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587
-    from_email = "warriorhawk2003@gmail.com"
-    password = "itic ewkv azad zkvr "
+# using python 3.12.3 and 3.12.3 interpreter
+# using pandas v 2.2.2
+# using pyperclip v 1.8.2
 
-    msg = MIMEText(body)
-
-    with smtplib.SMTP(smtp_server, smtp_port) as server:
-        server.starttls()
-        server.login(from_email, password)
-        server.sendmail(from_email, to_email, msg.as_string())
-
-def generate_poker_ledger(input_file, to_phone_email):
+def generate_poker_ledger(input_file):
     df = pd.read_csv(input_file)
     df['net'] = df['net'] / 100
     condensed = df.groupby('player_nickname')['net'].sum().reset_index()
@@ -36,10 +25,10 @@ def generate_poker_ledger(input_file, to_phone_email):
             if remaining_payment == 0:
                 break
 
-    body = "\n\n".join(output)
-    send_email("Poker Ledger Payment", body, to_phone_email)
+    body = "\n".join(output)
+    pyperclip.copy(body)
+    print("The ledger has been copied to the clipboard.")
 
 # Example usage:
 input_file = "ledger.csv"
-to_phone_email = "7029940967@txt.att.net"  # Replace with your carrier's email-to-SMS gateway
-generate_poker_ledger(input_file, to_phone_email)
+generate_poker_ledger(input_file)
