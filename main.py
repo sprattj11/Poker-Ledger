@@ -13,11 +13,14 @@ import pyperclip
 # using pandas v 2.2.2
 # using pyperclip v 1.8.2
 
-def generate_poker_ledger(input_file):
+def generate_poker_ledger(input_file, use_cents=True):
 
     # read the csv file and condense the info
     df = pd.read_csv(input_file)
-    #df['net'] = df['net'] / 100
+    
+    if use_cents:
+        df['net'] = df['net'] / 100
+    
     condensed = df.groupby('player_nickname')['net'].sum().reset_index()
     winners = condensed[condensed['net'] > 0].sort_values('net', ascending=False)
     losers = condensed[condensed['net'] < 0].sort_values('net', ascending=True)
@@ -43,4 +46,5 @@ def generate_poker_ledger(input_file):
 
 # calling main function
 input_file = "ledger.csv"
-generate_poker_ledger(input_file)
+use_cents = input("Were cent values used? (y/n): ").lower() == 'y'
+generate_poker_ledger(input_file, use_cents)
