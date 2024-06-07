@@ -1,5 +1,8 @@
 # Poker-Ledger - Jason Spratt
 
+![Stack Amounts](https://imgur.com/oEmbqPK)
+![Ledger Created](https://imgur.com/VYlNaFm)
+
 # Description:
 A poker ledger is created from a .csv file that is based on the poker game. A ledger is used to minimize the amount of transactions per player, rather than sending money to "buy-in" and "buy-out" a winners earnings are subtracted by their buy-in amount.
 

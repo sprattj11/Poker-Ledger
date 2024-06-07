@@ -17,7 +17,7 @@ def generate_poker_ledger(input_file):
 
     # read the csv file and condense the info
     df = pd.read_csv(input_file)
-    df['net'] = df['net'] / 100
+    #df['net'] = df['net'] / 100
     condensed = df.groupby('player_nickname')['net'].sum().reset_index()
     winners = condensed[condensed['net'] > 0].sort_values('net', ascending=False)
     losers = condensed[condensed['net'] < 0].sort_values('net', ascending=True)
