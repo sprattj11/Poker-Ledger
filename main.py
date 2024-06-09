@@ -25,7 +25,7 @@ def generate_poker_ledger(input_file, use_cents=True):
     winners = condensed[condensed['net'] > 0].sort_values('net', ascending=False)
     losers = condensed[condensed['net'] < 0].sort_values('net', ascending=True)
 
-    # generate the ledger
+    # generate the ledger using greedy algorithm
     output = []
     for loser_index, loser_row in losers.iterrows():
         remaining_payment = -loser_row['net']
